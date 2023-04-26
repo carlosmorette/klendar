@@ -33,3 +33,10 @@ npm-debug.log
 /assets/node_modules/
 
 todo.txt
+
+database.db
+database.db-shm
+database.db-wal
+klendar_dev
+klendar_dev-shm
+klendar_dev-wal

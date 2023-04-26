@@ -1,13 +1,16 @@
 import Config
 
 # Configure your database
+# config :klendar, Klendar.Repo,
+#   username: "postgres",
+#   password: "postgres",
+#   hostname: "localhost",
+#   database: "klendar_dev",
+#   show_sensitive_data_on_connection_error: true,
+#   pool_size: 10
+
 config :klendar, Klendar.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
-  database: "klendar_dev",
-  show_sensitive_data_on_connection_error: true,
-  pool_size: 10
+  database: "database.db"
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
