@@ -1,4 +1,18 @@
 defmodule Klendar.Calendar.Month do
+  @doc """
+  The expected output of generate/2 is:
+  iex(1)> Klendar.Calendar.generate_month(2023, 04) 
+  [
+    [nil, nil, nil, nil, nil, nil, 1],
+    [2, 3, 4, 5, 6, 7, 8],
+    [9, 10, 11, 12, 13, 14, 15],
+    [16, 17, 18, 19, 20, 21, 22],
+    [23, 24, 25, 26, 27, 28, 29],
+    [30, nil, nil, nil, nil, nil, nil]
+  ]
+  """
+
+  @spec generate(integer(), integer()) :: list(list(nil | integer()))
   def generate(year, month) do
     n_day_of_week =
       year
@@ -34,26 +48,24 @@ defmodule Klendar.Calendar.Month do
   end
 
   def do_generate_rest_of_month(week, last_day_of_the_month, acc) do
+    week =
+      do_generate_week(
+        List.last(week),
+        last_day_of_the_month,
+        0,
+        []
+      )
     last_day = List.last(week)
-
     if last_day == last_day_of_the_month do
-      Enum.reverse(acc)
+      Enum.reverse([fill_week(week) | acc])
     else
-      week =
-        do_generate_week(
-          List.last(week),
-          last_day_of_the_month,
-          0,
-          []
-        )
-
       do_generate_rest_of_month(
         week,
         last_day_of_the_month,
         [week | acc]
       )
-    end
   end
+end
 
   def do_generate_week(last_day_of_the_month, last_day_of_the_month, _pointer, acc),
     do: Enum.reverse(acc)
@@ -67,5 +79,13 @@ defmodule Klendar.Calendar.Month do
       pointer + 1,
       [day + 1 | acc]
     )
+  end
+
+  def fill_week(week) do
+    if length(week) < 7 do
+      fill_week(week ++ [nil])
+    else
+      week
+    end
   end
 end

@@ -2,6 +2,8 @@ defmodule Klendar.Calendar.Task do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Klendar.Repo
+
   schema "calendar_tasks" do
     field :title, :string
     field :description, :string
@@ -21,5 +23,11 @@ defmodule Klendar.Calendar.Task do
       :hex_color,
       :hour
     ])
+  end
+
+  def insert!(params) do
+    %__MODULE__{}
+    |> changeset(params)
+    |> Repo.insert!()
   end
 end

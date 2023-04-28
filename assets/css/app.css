@@ -1,7 +1,6 @@
-/* This file is for your main application CSS */
-@import "./phoenix.css";
-
 /* Alerts and form errors used by phx.new */
+* {margin: 0; padding: 0;}
+
 .alert {
   padding: 15px;
   margin-bottom: 20px;
@@ -117,4 +116,21 @@
 @keyframes fade-out-keys{
   0% { opacity: 1; }
   100% { opacity: 0; }
+}
+
+/* CalendarLiveComponent style */
+.calendar-week {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: 1em;
+}
+
+/* DayLiveComponent style */
+.day {
+    border: 1px solid black;
+    min-width: 100px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
