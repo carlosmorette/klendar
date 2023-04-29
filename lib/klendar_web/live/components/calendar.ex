@@ -1,13 +1,16 @@
-defmodule KlendarWeb.CalendarLiveComponent  do
-  use KlendarWeb, :live_component
+defmodule KlendarWeb.CalendarLiveComponent do
+  use Phoenix.Component
 
-  def mount(_params, _session, socket), do: {:ok, socket}
-
-  def render(assigns) do
+  def render(%{data: _data, month: _month, year: _year} = assigns) do
     ~H"""
     <div class="calendar-week">
-      <%= for week <- List.flatten(@month) do %>
-        <KlendarWeb.DayLiveComponent.render number={week} />
+      <%= for day <- List.flatten(@data) do %>
+      <KlendarWeb.DayLiveComponent.render
+      id={day || "nil-#{Ecto.UUID.generate()}"}
+      number={day} 
+      month={@month} 
+      year={@year} 
+    />
       <% end %>
     </div>
     """

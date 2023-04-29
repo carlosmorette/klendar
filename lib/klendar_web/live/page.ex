@@ -1,5 +1,8 @@
 defmodule KlendarWeb.PageLive do
   use KlendarWeb, :live_view
+  use KlendarWeb.PageLive.EventHandler
+
+  alias KlendarWeb.{CalendarLiveComponent, TasksSidebar}
 
   @abril_2023 [
     [nil, nil, nil, nil, nil, nil, 1],
@@ -18,7 +21,17 @@ defmodule KlendarWeb.PageLive do
   def render(assigns) do
     ~H"""
     <h1 style="margin-bottom: 20px; text-align: center">Calendário Abril 2023</h1>
-    <KlendarWeb.CalendarLiveComponent.render month={@abril_2023} />
+    <CalendarLiveComponent.render
+       id={"calendar"} 
+       data={@abril_2023} 
+       month={04} 
+       year={2023} 
+     />
+     <.live_component 
+       module={TasksSidebar}
+       id="tasks-sidebar"
+       show={true}
+     />
     """
   end
 end

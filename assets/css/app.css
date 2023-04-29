@@ -134,3 +134,12 @@
     align-items: center;
     justify-content: center;
 }
+
+/* TasksSidebar */
+.tasks-sidebar-container {
+    position: absolute;
+    top: 0;
+    min-width: 20vw;
+    height: 100vh;
+    background-color: blue;
+}

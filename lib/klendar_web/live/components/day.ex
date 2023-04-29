@@ -1,13 +1,11 @@
 defmodule KlendarWeb.DayLiveComponent do
-  use KlendarWeb, :live_view                                   
+  use Phoenix.Component                       
   
-  def mount(_params, _session, socket), do: {:ok, socket}
-  
-  def render(%{number: number} = assigns) do                                      
+  def render(%{number: number, month: month, year: year} = assigns) do                                      
     ~H"""                                                     
-    <div class="day">
+    <div class="day" phx-click="DayLiveComponent|phx-click|view-day" phx-value-month={month} phx-value-year={year}>
       <p><%= number %></p>
     </div>
     """                                                       
-  end                                                         
+  end
 end                                                           
