@@ -1,14 +1,16 @@
 defmodule KlendarWeb.TasksSidebar do
-  use Phoenix.LiveComponent
+  use Phoenix.Component
 
-  def mount(_params, _session, socket), do: {:ok, socket}
-
-  def render(assigns) do
+  def tasks(%{tasks: _tasks} = assigns) do
     ~H"""
     <div>
       <%= if @show do %>
         <div class="tasks-sidebar-container">
-          <p>Hello</p>
+	  <div class="tasks-sidebar-content">
+	    <%= for t <- @tasks do %>
+	      <p> <%= "#{t.hour} - #{t.description}" %></p>
+	      <% end %>
+	  </div>
 	</div>
       <% end %>
     </div>

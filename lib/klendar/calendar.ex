@@ -1,6 +1,5 @@
 defmodule Klendar.Calendar do
-  alias Klendar.Calendar.Month
-  alias Klendar.Calendar.Task
+  alias Klendar.Calendar.{Month, Task, Day}
 
   # TODO: spec
   def generate_month(year, month) do
@@ -18,5 +17,10 @@ defmodule Klendar.Calendar do
     } = params
   ) do
     Task.insert!(params)
+  end
+
+  # TODO: spec
+  def get_tasks(year, month, day) do
+    Day.tasks(year, month, day)
   end
 end
