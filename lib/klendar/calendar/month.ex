@@ -55,7 +55,9 @@ defmodule Klendar.Calendar.Month do
         0,
         []
       )
+
     last_day = List.last(week)
+
     if last_day == last_day_of_the_month do
       Enum.reverse([fill_week(week) | acc])
     else
@@ -64,8 +66,8 @@ defmodule Klendar.Calendar.Month do
         last_day_of_the_month,
         [week | acc]
       )
+    end
   end
-end
 
   def do_generate_week(last_day_of_the_month, last_day_of_the_month, _pointer, acc),
     do: Enum.reverse(acc)

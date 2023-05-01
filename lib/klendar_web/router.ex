@@ -17,7 +17,7 @@ defmodule KlendarWeb.Router do
   scope "/", KlendarWeb do
     pipe_through :browser
 
-    #get "/", PageController, :index
+    # get "/", PageController, :index
     live "/", PageLive
   end
 

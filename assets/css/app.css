@@ -118,14 +118,12 @@
   100% { opacity: 0; }
 }
 
-/* CalendarLiveComponent style */
 .calendar-week {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-gap: 1em;
 }
 
-/* DayLiveComponent style */
 .day {
     border: 1px solid black;
     min-width: 100px;
@@ -135,7 +133,6 @@
     justify-content: center;
 }
 
-/* TasksSidebar */
 .tasks-sidebar-container {
     position: absolute;
     top: 0;
@@ -148,4 +145,8 @@
 
 .tasks-sidebar-content {
     margin-top: 20px;
+}
+
+.tasks-sidebar-content > h3 {
+    margin-bottom: 20px;
 }

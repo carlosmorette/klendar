@@ -8,14 +8,14 @@ defmodule Klendar.Calendar do
 
   # TODO: spec
   def create_task(
-    %{
-      title: _title,
-      description: _description,
-      email: _email,
-      hex_color: _hex_color,
-      hour: _hour,
-    } = params
-  ) do
+        %{
+          title: _title,
+          description: _description,
+          email: _email,
+          hex_color: _hex_color,
+          hour: _hour
+        } = params
+      ) do
     Task.insert!(params)
   end
 
