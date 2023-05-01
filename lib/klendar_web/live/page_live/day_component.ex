@@ -28,7 +28,7 @@ defmodule KlendarWeb.PageLive.DayLiveComponent do
     else
       {:noreply,
        socket
-       |> update(:show_tasks_modal?, &(!&1))
+       |> update(:show_tasks_sidebar?, &(!&1))
        |> update(:current_date, fn _ -> {year, month, day} end)
        |> update(:tasks, fn _ -> Klendar.Calendar.get_tasks(year, month, day) end)}
     end
