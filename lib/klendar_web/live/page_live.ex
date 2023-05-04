@@ -18,7 +18,8 @@ defmodule KlendarWeb.PageLive do
        show_tasks_sidebar?: false,
        tasks: [],
        current_date: {},
-       show_new_task_modal?: false
+       show_new_task_modal?: false,
+       new_task: %{}
      )}
   end
 
@@ -74,10 +75,10 @@ defmodule KlendarWeb.PageLive do
     <div>
       <div class="tasks-sidebar-container">
         <div class="tasks-sidebar-content">
-	  <h3> Tarefas do dia: <%= day %></h3>
-	  <.tasks data={@tasks} />
-	  <button phx-click="PageLive|phx-click|show-new-task-modal">Criar tarefa</button>
-	</div>	  
+    <h3> Tarefas do dia: <%= day %></h3>
+    <.tasks data={@tasks} />
+    <button phx-click="PageLive|phx-click|show-new-task-modal">Criar tarefa</button>
+    </div>	  
       </div>
     </div>
     """
@@ -103,26 +104,26 @@ defmodule KlendarWeb.PageLive do
     """
   end
 
-  def new_task_modal(%{current_date: current_date} = assigns) do
-    #    {_year, _month, day} = current_date
-
+  def new_task_modal(assigns) do
     ~H"""
     <div class="new-task-modal-container">
       <div class="new-task-modal-content">
         <h2>Nova tarefa</h2>
-	<div>
-	  <label for="title">Título:</label>
-	  <input type="text" id="title" />
-	</div>
-	<div>
-	  <label for="description">Descrição:</label>
-	  <input type="text" id="description" />
-	</div>
-	<div>
-	  <label for="hour">Horário:</label>
-	  <input type="time" id="hour" />
-	</div>
-	<button phx-click="PageLive|phx-click|create-new-task">Criar</button>
+    <form phx-submit="PageLive|phx-click|save-new-task">
+    <div>
+     <label for="title">Título:</label>
+     <input type="text" id="title" name="title" />
+    </div>
+    <div>
+     <label for="description">Descrição:</label>
+     <input type="text" id="description" name="description" />
+    </div>
+    <div>
+     <label for="hour">Horário:</label>
+     <input type="time" id="hour" name="hour" />
+    </div>
+    <button>Criar</button>
+    </form>
       </div>
     </div>
     """
@@ -133,10 +134,30 @@ defmodule KlendarWeb.PageLive do
   end
 
   def handle_event("PageLive|phx-click|show-new-task-modal", _params, socket) do
-    {:noreply, update(socket, :show_new_task_modal?, & !&1)}
+    {:noreply, update(socket, :show_new_task_modal?, &(!&1))}
   end
 
-  def handle_event("PageLive|phx-click|create-new-task", _params, socket) do
-    {:noreply, socket}
+  def handle_event("PageLive|phx-click|save-new-task", params, socket) do
+    %{current_date: {year, month, day}} = socket.assigns
+    %{"description" => description, "title" => title, "hour" => hour} = params
+    [hour, minute] = String.split(hour, ":")
+
+    Klendar.Calendar.create_task(%{
+      title: title,
+      description: description,
+      email: nil,
+      hex_color: nil,
+      hour: {year, month, day, hour, minute}
+    })
+
+    {:noreply,
+     socket
+     |> update(:show_new_task_modal?, &(!&1))
+     |> update(
+       :tasks,
+       fn _ ->
+         Klendar.Calendar.get_tasks(year, month, day)
+       end
+     )}
   end
 end

@@ -16,11 +16,24 @@ defmodule Klendar.Calendar do
           hour: _hour
         } = params
       ) do
-    Task.insert!(params)
+    params
+    |> Map.update!(:hour, &make_task_hour/1)
+    |> Task.insert!()
   end
 
   # TODO: spec
   def get_tasks(year, month, day) do
     Day.tasks(year, month, day)
+  end
+
+  defp make_task_hour({year, month, day, hour, minute}) do
+    NaiveDateTime.new!(
+      String.to_integer(year),
+      String.to_integer(month),
+      String.to_integer(day),
+      String.to_integer(hour),
+      String.to_integer(minute),
+      0
+    )
   end
 end
