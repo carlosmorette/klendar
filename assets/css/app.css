@@ -124,6 +124,11 @@
     grid-gap: 1em;
 }
 
+.day-of-week {
+    text-align: center;
+    font-weight: bold;
+}
+
 .day {
     border: 1px solid black;
     min-width: 100px;
@@ -165,4 +170,9 @@
 .new-task-modal-content {
     background-color: white;
     padding: 30px 30px;
+}
+
+.arrows-content {
+    display: flex;
+    font-size: 30px;
 }

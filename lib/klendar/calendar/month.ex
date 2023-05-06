@@ -19,6 +19,10 @@ defmodule Klendar.Calendar.Month do
       |> Date.new!(month, 1)
       |> Date.beginning_of_month()
       |> Date.day_of_week()
+      |> then(fn
+        7 -> 0
+        n -> n
+      end)
 
     fw = generate_first_week(n_day_of_week)
 
@@ -31,7 +35,7 @@ defmodule Klendar.Calendar.Month do
     ]
   end
 
-  def generate_first_week(n_day_of_week) when n_day_of_week >= 0 and n_day_of_week <= 6 do
+  def generate_first_week(n_day_of_week) when n_day_of_week >= 0 and n_day_of_week <= 7 do
     0..6
     |> Enum.reduce({[], 1}, fn column, {acc_week, day_counter} ->
       if column < n_day_of_week do
@@ -90,4 +94,17 @@ defmodule Klendar.Calendar.Month do
       week
     end
   end
+
+  def parse(1), do: "Janeiro"
+  def parse(2), do: "Fevereiro"
+  def parse(3), do: "Março"
+  def parse(4), do: "Abril"
+  def parse(5), do: "Maio"
+  def parse(6), do: "Junho"
+  def parse(7), do: "Julho"
+  def parse(8), do: "Agosto"
+  def parse(9), do: "Setembro"
+  def parse(10), do: "Outubro"
+  def parse(11), do: "Novembro"
+  def parse(12), do: "Dezembro"
 end

@@ -4,8 +4,8 @@ defmodule Klendar.Calendar.Day do
   def tasks(year, month, day) do
     [year: year, month: fill(month), day: fill(day)]
     |> Task.find()
+    |> Enum.sort_by(& &1.hour, {:asc, NaiveDateTime})
     |> Enum.map(&format_each/1)
-    |> Enum.sort_by(& &1.hour)
   end
 
   def fill(n) when n <= 0 and is_integer(n), do: "0#{n}"

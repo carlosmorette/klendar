@@ -32,12 +32,12 @@ defmodule Klendar.Calendar.Task do
     |> Repo.insert!()
   end
 
-  def find([year: year, month: month, day: day] = params) do
+  def find(year: year, month: month, day: day) do
     query =
       from t in __MODULE__,
         where: fragment("strftime('%Y', ?)", t.hour) == ^year,
         where: fragment("strftime('%m', ?)", t.hour) == ^month,
-        where: fragment("strftime('%d', ?)", t.hour) == ^day
+      where: fragment("strftime('%d', ?)", t.hour) == ^day
 
     Repo.all(query)
   end

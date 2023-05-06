@@ -36,4 +36,8 @@ defmodule Klendar.Calendar do
       0
     )
   end
+
+  def parse_month(month) do
+    Month.parse(month)
+  end
 end
